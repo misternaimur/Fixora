@@ -5,10 +5,15 @@ import Link from "next/link";
 import { cn } from "@/app/lib/utils";
 import { Button, buttonVariants } from "@/app/components/ui/button";
 import { Portal, PortalBackdrop } from "@/app/components/ui/portal";
-import { navLinks } from "@/app/components/shared/header";
+import { scrollToHash } from "@/app/components/hooks/use-scroll";
 import { XIcon, MenuIcon } from "lucide-react";
 
-export function MobileNav() {
+export interface MobileNavLink {
+	label: string;
+	href: string;
+}
+
+export function MobileNav({ links }: { links: readonly MobileNavLink[] }) {
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -39,7 +44,7 @@ export function MobileNav() {
 						data-slot={open ? "open" : "closed"}
 					>
 						<div className="grid gap-y-2">
-							{navLinks.map((link) => (
+							{links.map((link) => (
 								<a
 									className={cn(
 										buttonVariants({ variant: "ghost" }),
@@ -47,7 +52,10 @@ export function MobileNav() {
 									)}
 									href={link.href}
 									key={link.label}
-									onClick={() => setOpen(false)}
+									onClick={(e) => {
+										setOpen(false);
+										scrollToHash(e, link.href);
+									}}
 								>
 									{link.label}
 								</a>

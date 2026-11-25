@@ -135,4 +135,7 @@
   h6 {
     font-family: var(--font-heading);
   }
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
 }
