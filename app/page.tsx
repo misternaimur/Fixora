@@ -6,18 +6,20 @@ import ToolkitSection from "./components/sections/ToolkitSection";
 import WorkspaceSection from "./components/sections/WorkspaceSection";
 import HowItWorksSection from "./components/sections/HowItWorksSection";
 import CtaSection from "./components/sections/CtaSection";
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-zinc-50 font-sans">
+    <div className="flex min-h-screen w-full flex-col bg-[#efece6] font-sans">
       <Header />
-      <main className="flex-1" />
-      <HeroSection></HeroSection>
-      <FeaturesSection/>
-      <ToolkitSection/>
-      <WorkspaceSection/>
-      <HowItWorksSection/>
-      <CtaSection/>
+      <main className="flex-1">
+        <HeroSection />
+        <FeaturesSection />
+        <ToolkitSection />
+        <WorkspaceSection />
+        <HowItWorksSection />
+        <CtaSection />
+      </main>
       <Footer />
     </div>
   );
-};
+}

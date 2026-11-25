@@ -1,0 +1,17 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 100 100"
+  width="100"
+  height="100"
+  fill="none"
+  role="img"
+  aria-label="Fixora logo"
+>
+  <title>Fixora</title>
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M0 16A16 16 0 0 1 16 0H84A16 16 0 0 1 100 16V84A16 16 0 0 1 84 100H42V95C42 80.641 53.641 69 68 69H78V50H68C43.147 50 23 70.147 23 95V100H16A16 16 0 0 1 0 84V16ZM23 23H78V41H23V23Z"
+    fill="#FF6B00"
+  />
+</svg>

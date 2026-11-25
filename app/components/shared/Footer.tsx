@@ -24,28 +24,28 @@ const footerLinks: FooterSection[] = [
 	{
 		label: "Product",
 		links: [
-			{ title: "Features", href: "#" },
-			{ title: "Pricing", href: "#" },
-			{ title: "Testimonials", href: "#" },
-			{ title: "Integration", href: "#" },
+			{ title: "Features", href: "#features" },
+			{ title: "Toolkit", href: "#toolkit" },
+			{ title: "Workspace", href: "#workspace" },
+			{ title: "How It Works", href: "#how-it-works" },
 		],
 	},
 	{
 		label: "Company",
 		links: [
-			{ title: "FAQs", href: "#" },
-			{ title: "About Us", href: "#" },
+			{ title: "About Fixora", href: "#features" },
+			{ title: "FAQs", href: "#how-it-works" },
 			{ title: "Privacy Policy", href: "#" },
-			{ title: "T&S", href: "#" },
+			{ title: "Terms of Service", href: "#" },
 		],
 	},
 	{
 		label: "Resources",
 		links: [
-			{ title: "Blog", href: "#" },
+			{ title: "Documentation", href: "#" },
 			{ title: "Changelog", href: "#" },
-			{ title: "Brand", href: "#" },
-			{ title: "Help", href: "#" },
+			{ title: "Brand Assets", href: "/Fixora.svg" },
+			{ title: "Help Center", href: "#" },
 		],
 	},
 	{
@@ -62,7 +62,7 @@ const footerLinks: FooterSection[] = [
 				icon: <InstagramIcon />,
 			},
 			{
-				title: "Youtube",
+				title: "YouTube",
 				href: "#",
 				icon: <YoutubeIcon />,
 			},
@@ -87,30 +87,32 @@ export function Footer() {
 	return (
 		<footer
 			className={cn(
-				"relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center rounded-t-4xl border-t px-6 md:rounded-t-6xl md:px-8",
-				"dark:bg-[radial-gradient(35%_128px_at_50%_0%,--theme(--color-foreground/.1),transparent)]"
+				"relative mx-auto flex w-full max-w-7xl flex-col items-center justify-center border-t border-[#e3dfd7] bg-[#efece6] px-4 sm:px-6 lg:px-8"
 			)}
 		>
-			<div className="absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground/20 blur" />
+			<div className="absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#e86a17]/35 blur-[2px]" />
 
-			<div className="grid w-full gap-8 py-6 md:py-8 lg:grid-cols-3 lg:gap-8">
+			<div className="grid w-full gap-8 py-10 md:py-12 lg:grid-cols-3 lg:gap-10">
 				<AnimatedContainer className="space-y-4">
-					<Logo className="h-4" />
-					<p className="mt-8 text-muted-foreground text-sm md:mt-0">
-						Beautify your app with efferd.
+					<Logo iconClassName="size-7" textClassName="text-lg text-[#141414]" />
+					<p className="max-w-xs text-sm leading-relaxed text-[#6e6a63]">
+						Construction management, simplified. Built around your projects,
+						budgets, and site teams.
 					</p>
 				</AnimatedContainer>
 
-				<div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4 lg:col-span-2 lg:mt-0">
+				<div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-4 lg:col-span-2 lg:mt-0">
 					{footerLinks.map((section, index) => (
-						<AnimatedContainer delay={0.1 + index * 0.1} key={section.label}>
-							<div className="mb-10 md:mb-0">
-								<h3 className="font-heading text-xs">{section.label}</h3>
-								<ul className="mt-4 space-y-2 text-muted-foreground text-sm">
+						<AnimatedContainer delay={0.1 + index * 0.08} key={section.label}>
+							<div className="mb-6 md:mb-0">
+								<h3 className="font-heading text-xs font-bold tracking-[0.08em] text-[#141414] uppercase">
+									{section.label}
+								</h3>
+								<ul className="mt-4 space-y-2.5 text-sm text-[#6e6a63]">
 									{section.links.map((link) => (
 										<li key={link.title}>
 											<a
-												className="inline-flex items-center duration-250 hover:text-foreground [&_svg]:me-1.5 [&_svg]:size-3.5"
+												className="inline-flex items-center transition-colors duration-200 hover:text-[#141414] [&_svg]:me-1.5 [&_svg]:size-3.5"
 												href={link.href}
 												key={`${section.label}-${link.title}`}
 											>
@@ -125,10 +127,11 @@ export function Footer() {
 					))}
 				</div>
 			</div>
-			<div className="h-px w-full bg-linear-to-r via-border" />
-			<div className="flex w-full items-center justify-center py-4">
-				<p className="text-muted-foreground text-sm">
-					&copy; {year} efferd, All rights reserved
+
+			<div className="h-px w-full bg-gradient-to-r from-transparent via-[#dcd6ca] to-transparent" />
+			<div className="flex w-full items-center justify-center py-5">
+				<p className="text-xs font-medium text-[#6e6a63]">
+					&copy; {year} Fixora. All rights reserved.
 				</p>
 			</div>
 		</footer>
@@ -154,7 +157,7 @@ function AnimatedContainer({
 		<motion.div
 			className={className}
 			initial={{ filter: "blur(4px)", translateY: -8, opacity: 0 }}
-			transition={{ delay, duration: 0.8 }}
+			transition={{ delay, duration: 0.7 }}
 			viewport={{ once: true }}
 			whileInView={{ filter: "blur(0px)", translateY: 0, opacity: 1 }}
 		>

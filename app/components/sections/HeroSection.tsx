@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/app/lib/utils";
 import { buttonVariants } from "@/app/components/ui/button";
+import { Logo } from "@/app/components/shared/logo";
 
 const sidebarItems = [
   { label: "Overview", icon: LayoutGrid, active: true },
@@ -200,27 +201,12 @@ export default function HeroSection() {
               {/* Left Sidebar */}
               <aside className="col-span-4 border-r border-neutral-200/70 bg-neutral-50/60 p-3 sm:col-span-3 sm:p-3.5">
                 {/* Brand Header */}
-                <div className="flex items-center gap-2 px-1.5">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#e86a17] text-white">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-3.5 w-3.5"
-                      aria-hidden="true"
-                    >
-                      <path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z" />
-                      <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" />
-                      <path d="M4 15v-3a6 6 0 0 1 6-6h0" />
-                      <path d="M14 6h0a6 6 0 0 1 6 6v3" />
-                    </svg>
-                  </div>
-                  <span className="text-xs font-bold tracking-tight text-neutral-900">
-                    fixora
-                  </span>
+                <div className="px-1.5">
+                  <Logo
+                    className="gap-2"
+                    iconClassName="size-5"
+                    textClassName="text-xs font-bold tracking-tight text-neutral-900"
+                  />
                 </div>
 
                 <p className="mt-4 px-2 text-[9px] font-semibold tracking-widest text-neutral-400 uppercase">

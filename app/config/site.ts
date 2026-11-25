@@ -1,11 +1,12 @@
 export const siteConfig = {
-  name: "Fixora ", 
-  description: "Modern web application platform",
+  name: "Fixora",
+  description:
+    "Construction management, simplified. Manage projects, budgets, materials, and field teams in one workspace.",
   navItems: [
     { title: "Features", href: "#features" },
-    { title: "How it Works", href: "#how-it-works" },
-    { title: "Pricing", href: "#pricing" },
-    { title: "FAQ", href: "#faq" },
+    { title: "Toolkit", href: "#toolkit" },
+    { title: "Workspace", href: "#workspace" },
+    { title: "How It Works", href: "#how-it-works" },
   ],
 } as const;
 

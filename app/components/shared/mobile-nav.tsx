@@ -1,6 +1,9 @@
-import { cn } from "@/app/lib/utils";
+"use client";
+
 import React from "react";
-import { Button } from "@/app/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/app/lib/utils";
+import { Button, buttonVariants } from "@/app/components/ui/button";
 import { Portal, PortalBackdrop } from "@/app/components/ui/portal";
 import { navLinks } from "@/app/components/shared/header";
 import { XIcon, MenuIcon } from "lucide-react";
@@ -37,21 +40,34 @@ export function MobileNav() {
 					>
 						<div className="grid gap-y-2">
 							{navLinks.map((link) => (
-								<Button
-									className="w-full justify-start"
+								<a
+									className={cn(
+										buttonVariants({ variant: "ghost" }),
+										"w-full justify-start"
+									)}
+									href={link.href}
 									key={link.label}
-									onClick={() => (window.location.href = link.href)}
-									variant="ghost"
+									onClick={() => setOpen(false)}
 								>
 									{link.label}
-								</Button>
+								</a>
 							))}
 						</div>
-						<div className="mt-12 flex flex-col gap-2">
-							<Button className="w-full" variant="outline">
+						<div className="mt-10 flex flex-col gap-2.5">
+							<Link
+								href="/login"
+								onClick={() => setOpen(false)}
+								className={cn(buttonVariants({ variant: "outline" }), "w-full")}
+							>
 								Sign In
-							</Button>
-							<Button className="w-full">Get Started</Button>
+							</Link>
+							<Link
+								href="/register"
+								onClick={() => setOpen(false)}
+								className={cn(buttonVariants(), "w-full")}
+							>
+								Get Started
+							</Link>
 						</div>
 					</div>
 				</Portal>
