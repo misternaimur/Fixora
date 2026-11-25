@@ -2,18 +2,24 @@ import * as React from "react";
 import { cn } from "@/app/lib/utils";
 
 const variantStyles = {
-  default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-  destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-  outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-  secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-  ghost: "hover:bg-accent hover:text-accent-foreground",
-  link: "text-primary underline-offset-4 hover:underline",
+  default:
+    "bg-[#ef682e] text-[#141414] font-bold shadow-xs hover:bg-[#e05c22]",
+  destructive:
+    "bg-red-600 text-white shadow-xs hover:bg-red-700",
+  outline:
+    "border border-[#141414]/20 bg-transparent text-[#141414] hover:bg-[#141414]/5",
+  secondary:
+    "bg-[#141414] text-white hover:bg-[#222222]",
+  ghost:
+    "bg-transparent text-[#141414]/80 hover:text-[#141414] hover:bg-[#141414]/5",
+  link:
+    "text-[#141414] underline-offset-4 hover:underline",
 } as const;
 
 const sizeStyles = {
-  default: "h-9 px-4 py-2",
-  sm: "h-8 rounded-md px-3 text-xs",
-  lg: "h-10 rounded-md px-8",
+  default: "h-10 px-4 py-2 text-xs",
+  sm: "h-9 rounded-md px-3.5 text-[11px]",
+  lg: "h-11 rounded-md px-6 text-xs",
   icon: "h-9 w-9",
 } as const;
 
@@ -30,14 +36,15 @@ export function buttonVariants({
   className?: string;
 } = {}) {
   return cn(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md font-semibold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef682e] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0",
     variantStyles[variant],
     sizeStyles[size],
     className
   );
 }
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
 }
