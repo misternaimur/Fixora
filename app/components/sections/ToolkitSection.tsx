@@ -15,7 +15,7 @@ const toolkitItems = [
     title: "Project management",
     description:
       "Plan, organize and monitor every project from one clear, shared view.",
-    href: "#project-management",
+    href: "#workspace",
     icon: Briefcase,
   },
   {
@@ -23,7 +23,7 @@ const toolkitItems = [
     title: "Tasks & workflows",
     description:
       "Assign ownership, keep deadlines visible and move work forward.",
-    href: "#tasks-workflows",
+    href: "#workspace",
     icon: GitBranch,
   },
   {
@@ -31,7 +31,7 @@ const toolkitItems = [
     title: "Budgets & expenses",
     description:
       "See committed costs, logged expenses and remaining budget at a glance.",
-    href: "#budgets-expenses",
+    href: "#workspace",
     icon: Wallet,
   },
   {
@@ -39,7 +39,7 @@ const toolkitItems = [
     title: "Materials & inventory",
     description:
       "Keep stock levels, requests and material usage organized across sites.",
-    href: "#materials-inventory",
+    href: "#workspace",
     icon: Boxes,
   },
   {
@@ -47,7 +47,7 @@ const toolkitItems = [
     title: "Contractor management",
     description:
       "Coordinate contractor assignments, responsibilities and site work.",
-    href: "#contractor-management",
+    href: "#how-it-works",
     icon: Users,
   },
   {
@@ -55,7 +55,7 @@ const toolkitItems = [
     title: "Progress & analytics",
     description:
       "Track milestones, daily progress and project performance as it happens.",
-    href: "#progress-analytics",
+    href: "#workspace",
     icon: BarChart3,
   },
 ];

@@ -10,19 +10,20 @@ import {
 	ArrowRight,
 	Check,
 	CheckCircle2,
-	Eye,
-	EyeOff,
 	Info,
 	Loader2,
-	Lock,
 	Mail,
 	Phone,
 	User,
 	UserPlus,
 } from "lucide-react";
 import { cn } from "@/app/lib/utils";
+import { Badge } from "@/app/components/ui/badge";
+import { Button, buttonVariants } from "@/app/components/ui/button";
+import { Checkbox } from "@/app/components/ui/checkbox";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import { PasswordInput } from "@/app/components/ui/password-input";
 import {
 	getPasswordStrength,
 	passwordChecks,
@@ -31,8 +32,6 @@ import {
 } from "./register-schema";
 
 export function RegisterForm() {
-	const [showPassword, setShowPassword] = useState(false);
-	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [submittedEmail, setSubmittedEmail] = useState<string | null>(null);
 	const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -100,16 +99,19 @@ export function RegisterForm() {
 						<span className="text-xs font-medium text-neutral-500">
 							Access Status
 						</span>
-						<span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[11px] font-semibold text-[#B45309]">
+						<Badge variant="warning">
 							<span className="size-1.5 rounded-full bg-[#D97706]" />
 							Pending Admin Approval
-						</span>
+						</Badge>
 					</div>
 				</div>
 
 				<Link
 					href="/login"
-					className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#D97706] px-5 text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-[#B45309] focus-visible:ring-2 focus-visible:ring-[#D97706]/40 focus-visible:ring-offset-2 focus-visible:outline-none"
+					className={cn(
+						buttonVariants({ variant: "amber" }),
+						"mt-6 h-11 w-full rounded-lg text-sm tracking-normal normal-case"
+					)}
 				>
 					<ArrowLeft className="size-4" />
 					<span>Back to Sign In</span>
@@ -122,7 +124,7 @@ export function RegisterForm() {
 		<div className="w-full max-w-[460px]">
 			<div className="rounded-xl border border-[#E7E5E4] bg-white p-6 shadow-[0_2px_10px_rgba(20,20,20,0.03)] sm:p-8">
 				{/* Top Icon Badge */}
-				<div className="inline-flex size-10 items-center justify-center rounded-xl border border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]">
+				<div className="inline-flex size-10 items-center justify-center rounded-xl border border-[#D97706]/20 bg-[#D97706]/10 text-[#B45309]">
 					<UserPlus className="size-4.5" strokeWidth={2} />
 				</div>
 
@@ -228,33 +230,13 @@ export function RegisterForm() {
 					{/* Password */}
 					<div className="space-y-1.5">
 						<Label htmlFor="register-password">Password</Label>
-						<div className="relative">
-							<Lock
-								className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-neutral-400"
-								aria-hidden="true"
-							/>
-							<Input
-								id="register-password"
-								type={showPassword ? "text" : "password"}
-								autoComplete="new-password"
-								placeholder="Create a password"
-								hasError={!!errors.password && !!touchedFields.password}
-								className="pr-11 pl-10"
-								{...register("password")}
-							/>
-							<button
-								type="button"
-								onClick={() => setShowPassword((prev) => !prev)}
-								aria-label={showPassword ? "Hide password" : "Show password"}
-								className="absolute top-1/2 right-2.5 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
-							>
-								{showPassword ? (
-									<EyeOff className="size-4" />
-								) : (
-									<Eye className="size-4" />
-								)}
-							</button>
-						</div>
+						<PasswordInput
+							id="register-password"
+							autoComplete="new-password"
+							placeholder="Create a password"
+							hasError={!!errors.password && !!touchedFields.password}
+							{...register("password")}
+						/>
 
 						{/* Password Strength Indicator & Checklist */}
 						<div className="rounded-xl border border-[#E7E5E4] bg-[#FAFAF9] p-3">
@@ -323,37 +305,15 @@ export function RegisterForm() {
 					{/* Confirm Password */}
 					<div className="space-y-1.5">
 						<Label htmlFor="register-confirm-password">Confirm Password</Label>
-						<div className="relative">
-							<Lock
-								className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-neutral-400"
-								aria-hidden="true"
-							/>
-							<Input
-								id="register-confirm-password"
-								type={showConfirmPassword ? "text" : "password"}
-								autoComplete="new-password"
-								placeholder="Confirm your password"
-								hasError={!!errors.confirmPassword}
-								className="pr-11 pl-10"
-								{...register("confirmPassword")}
-							/>
-							<button
-								type="button"
-								onClick={() => setShowConfirmPassword((prev) => !prev)}
-								aria-label={
-									showConfirmPassword
-										? "Hide confirm password"
-										: "Show confirm password"
-								}
-								className="absolute top-1/2 right-2.5 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
-							>
-								{showConfirmPassword ? (
-									<EyeOff className="size-4" />
-								) : (
-									<Eye className="size-4" />
-								)}
-							</button>
-						</div>
+						<PasswordInput
+							id="register-confirm-password"
+							autoComplete="new-password"
+							placeholder="Confirm your password"
+							showLabel="Show confirm password"
+							hideLabel="Hide confirm password"
+							hasError={!!errors.confirmPassword}
+							{...register("confirmPassword")}
+						/>
 						{errors.confirmPassword && (
 							<p className="flex items-center gap-1.5 text-xs font-medium text-red-600">
 								<AlertCircle className="size-3.5 shrink-0" />
@@ -365,7 +325,7 @@ export function RegisterForm() {
 					{/* Account Access Information Notice */}
 					<div className="flex items-start gap-2.5 rounded-xl border border-amber-200/90 bg-amber-50/75 p-3.5 text-xs leading-relaxed text-amber-950">
 						<Info
-							className="mt-0.5 size-4 shrink-0 text-[#D97706]"
+							className="mt-0.5 size-4 shrink-0 text-[#B45309]"
 							aria-hidden="true"
 						/>
 						<p>
@@ -378,26 +338,17 @@ export function RegisterForm() {
 					{/* Terms & Conditions Checkbox */}
 					<div className="space-y-1.5 pt-0.5">
 						<div className="flex items-start gap-2.5">
-							<button
+							<Checkbox
 								id="register-terms"
-								type="button"
-								role="checkbox"
-								aria-checked={acceptTermsValue}
-								onClick={() =>
-									setValue("acceptTerms", !acceptTermsValue, {
+								checked={acceptTermsValue}
+								onCheckedChange={(checked) =>
+									setValue("acceptTerms", checked, {
 										shouldValidate: true,
 										shouldTouch: true,
 									})
 								}
-								className={cn(
-									"mt-0.5 flex size-4 shrink-0 cursor-pointer items-center justify-center rounded border transition-colors focus-visible:ring-2 focus-visible:ring-[#D97706]/40 focus-visible:outline-none",
-									acceptTermsValue
-										? "border-[#D97706] bg-[#D97706] text-white"
-										: "border-neutral-300 bg-white text-transparent hover:border-neutral-400"
-								)}
-							>
-								<Check className="size-3" strokeWidth={3} />
-							</button>
+								className="mt-0.5"
+							/>
 							<label
 								htmlFor="register-terms"
 								className="cursor-pointer text-xs leading-relaxed text-neutral-600 select-none"
@@ -405,14 +356,14 @@ export function RegisterForm() {
 								I agree to the{" "}
 								<Link
 									href="/terms"
-									className="font-semibold text-[#D97706] transition-colors hover:text-[#B45309] hover:underline"
+									className="font-semibold text-[#B45309] transition-colors hover:text-[#92400E] hover:underline"
 								>
 									Terms &amp; Conditions
 								</Link>{" "}
 								and{" "}
 								<Link
 									href="/privacy"
-									className="font-semibold text-[#D97706] transition-colors hover:text-[#B45309] hover:underline"
+									className="font-semibold text-[#B45309] transition-colors hover:text-[#92400E] hover:underline"
 								>
 									Privacy Policy
 								</Link>
@@ -439,10 +390,11 @@ export function RegisterForm() {
 					)}
 
 					{/* Primary CTA */}
-					<button
+					<Button
 						type="submit"
+						variant="amber"
 						disabled={!isValid || isSubmitting}
-						className="group inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#D97706] px-5 text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-[#B45309] focus-visible:ring-2 focus-visible:ring-[#D97706]/45 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+						className="group h-11 w-full rounded-lg text-sm tracking-normal normal-case"
 					>
 						{isSubmitting ? (
 							<>
@@ -455,7 +407,7 @@ export function RegisterForm() {
 								<ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
 							</>
 						)}
-					</button>
+					</Button>
 				</form>
 			</div>
 
@@ -464,7 +416,7 @@ export function RegisterForm() {
 				Already have an account?{" "}
 				<Link
 					href="/login"
-					className="font-semibold text-[#D97706] transition-colors hover:text-[#B45309] hover:underline"
+					className="font-semibold text-[#B45309] transition-colors hover:text-[#92400E] hover:underline"
 				>
 					Sign In
 				</Link>

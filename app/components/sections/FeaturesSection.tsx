@@ -41,7 +41,7 @@ export default function FeaturesSection() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-[11px] font-semibold tracking-[0.2em] text-[#e86a17] uppercase">
+          <p className="text-[11px] font-semibold tracking-[0.2em] text-[#B8470A] uppercase">
             Clarity at every level
           </p>
 

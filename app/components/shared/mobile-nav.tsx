@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/app/lib/utils";
 import { Button, buttonVariants } from "@/app/components/ui/button";
@@ -16,6 +16,17 @@ export interface MobileNavLink {
 export function MobileNav({ links }: { links: readonly MobileNavLink[] }) {
 	const [open, setOpen] = React.useState(false);
 
+	useEffect(() => {
+		if (!open) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setOpen(false);
+			}
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [open]);
+
 	return (
 		<div className="md:hidden">
 			<Button
@@ -23,7 +34,7 @@ export function MobileNav({ links }: { links: readonly MobileNavLink[] }) {
 				aria-expanded={open}
 				aria-label="Toggle menu"
 				className="md:hidden"
-				onClick={() => setOpen(!open)}
+				onClick={() => setOpen((prev) => !prev)}
 				size="icon"
 				variant="outline"
 			>
@@ -34,8 +45,14 @@ export function MobileNav({ links }: { links: readonly MobileNavLink[] }) {
 				)}
 			</Button>
 			{open && (
-				<Portal className="top-14" id="mobile-menu">
-					<PortalBackdrop />
+				<Portal
+					className="top-14"
+					id="mobile-menu"
+					role="dialog"
+					aria-modal="true"
+					aria-label="Mobile navigation"
+				>
+					<PortalBackdrop onClick={() => setOpen(false)} />
 					<div
 						className={cn(
 							"data-[slot=open]:zoom-in-97 ease-out data-[slot=open]:animate-in",

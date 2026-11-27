@@ -49,6 +49,24 @@
 }
 
 :root {
+  /* Fixora Design Tokens (DESIGN.md) */
+  --fixora-mark: #ff6b00;
+  --fixora-primary: #e86a17;
+  --fixora-primary-hover: #d45e12;
+  --fixora-primary-accessible: #b8470a;
+  --fixora-cta: #ef682e;
+  --fixora-cta-hover: #e05c22;
+  --fixora-amber: #d97706;
+  --fixora-amber-accessible: #b45309;
+  --fixora-amber-hover: #92400e;
+  --fixora-bg-dark: #141414;
+  --fixora-surface-dark: #1c1c1c;
+  --fixora-bg-stone: #efece6;
+  --fixora-surface-stone: #f7f5f0;
+  --fixora-bg-warm: #fafaf9;
+  --fixora-border-stone: #e3dfd7;
+  --fixora-border-auth: #e7e5e4;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -137,5 +155,11 @@
   }
   section[id] {
     scroll-margin-top: 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

@@ -73,7 +73,7 @@ export function Header() {
 										className={cn(
 											"inline-flex h-8 items-center justify-center rounded-md px-3 text-xs font-semibold tracking-[0.04em] transition-colors duration-200",
 											isActive
-												? "bg-[#e86a17]/12 text-[#e86a17]"
+												? "bg-[#e86a17]/12 text-[#B8470A]"
 												: "text-[#141414]/75 hover:bg-[#141414]/5 hover:text-[#141414]"
 										)}
 									>

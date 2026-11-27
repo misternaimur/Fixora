@@ -4,60 +4,59 @@ import React, { useState } from "react";
 import Link from "next/link";
 import {
 	ArrowRight,
-	Check,
 	ChevronDown,
-	Eye,
-	EyeOff,
+	Loader2,
 	Lock,
 	Mail,
 	ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/app/lib/utils";
 import { roleMeta, type UserRole } from "@/app/config/dashboard";
+import { Badge, type BadgeVariant } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Checkbox } from "@/app/components/ui/checkbox";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { PasswordInput } from "@/app/components/ui/password-input";
 
 const demoAccounts: {
 	role: UserRole;
 	email: string;
-	password: string;
-	badgeClass: string;
+	badgeVariant: BadgeVariant;
 }[] = [
 	{
 		role: "admin",
 		email: "admin@fixora.com",
-		password: "••••••••••••",
-		badgeClass: "bg-[#FF6B00]/12 text-[#c85600] border-[#FF6B00]/25",
+		badgeVariant: "brand",
 	},
 	{
 		role: "manager",
 		email: "manager@fixora.com",
-		password: "••••••••••••",
-		badgeClass: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20",
+		badgeVariant: "success",
 	},
 	{
 		role: "contractor",
 		email: "contractor@fixora.com",
-		password: "••••••••••••",
-		badgeClass: "bg-sky-500/10 text-sky-700 border-sky-500/20",
+		badgeVariant: "info",
 	},
 	{
 		role: "client",
 		email: "client@fixora.com",
-		password: "••••••••••••",
-		badgeClass: "bg-neutral-500/10 text-neutral-700 border-neutral-300",
+		badgeVariant: "neutral",
 	},
 ];
 
 export function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [showPassword, setShowPassword] = useState(false);
 	const [rememberMe, setRememberMe] = useState(true);
 	const [demoOpen, setDemoOpen] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [selectedDemoRole, setSelectedDemoRole] = useState<UserRole | null>(
 		null
 	);
 	const [statusMessage, setStatusMessage] = useState<{
-		type: "success" | "error";
+		type: "success" | "error" | "info";
 		text: string;
 	} | null>(null);
 
@@ -68,7 +67,7 @@ export function LoginForm() {
 		setStatusMessage(null);
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (!email.trim() || !password.trim()) {
@@ -79,6 +78,11 @@ export function LoginForm() {
 			return;
 		}
 
+		setIsSubmitting(true);
+		setStatusMessage(null);
+		await new Promise((resolve) => setTimeout(resolve, 450));
+		setIsSubmitting(false);
+
 		setStatusMessage({
 			type: "success",
 			text: `Credentials ready for ${email}. Connect your authentication handler to complete sign-in.`,
@@ -88,7 +92,7 @@ export function LoginForm() {
 	return (
 		<div className="w-full max-w-[410px]">
 			{/* Top Lock Icon Badge */}
-			<div className="inline-flex size-10 items-center justify-center rounded-xl border border-[#FF6B00]/15 bg-[#FF6B00]/10 text-[#e07009]">
+			<div className="inline-flex size-10 items-center justify-center rounded-xl border border-[#D97706]/20 bg-[#D97706]/10 text-[#B45309]">
 				<Lock className="size-4.5" strokeWidth={2} />
 			</div>
 
@@ -106,18 +110,13 @@ export function LoginForm() {
 			<form className="mt-7 space-y-4.5" onSubmit={handleSubmit} noValidate>
 				{/* Email Field */}
 				<div className="space-y-1.5">
-					<label
-						htmlFor="login-email"
-						className="block text-xs font-semibold text-[#141414]"
-					>
-						Email Address
-					</label>
+					<Label htmlFor="login-email">Email Address</Label>
 					<div className="relative">
 						<Mail
 							className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-neutral-400"
 							aria-hidden="true"
 						/>
-						<input
+						<Input
 							id="login-email"
 							name="email"
 							type="email"
@@ -129,80 +128,55 @@ export function LoginForm() {
 								if (statusMessage) setStatusMessage(null);
 							}}
 							placeholder="Enter your work email..."
-							className="h-11 w-full rounded-lg border border-neutral-200 bg-white pr-3.5 pl-10 text-sm text-[#141414] placeholder:text-neutral-400 transition-colors focus:border-[#e07009] focus:ring-2 focus:ring-[#e07009]/15 focus:outline-none"
+							className="pl-10"
 						/>
 					</div>
 				</div>
 
 				{/* Password Field */}
 				<div className="space-y-1.5">
-					<label
-						htmlFor="login-password"
-						className="block text-xs font-semibold text-[#141414]"
-					>
-						Password
-					</label>
-					<div className="relative">
-						<Lock
-							className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-neutral-400"
-							aria-hidden="true"
-						/>
-						<input
-							id="login-password"
-							name="password"
-							type={showPassword ? "text" : "password"}
-							autoComplete="current-password"
-							value={password}
-							onChange={(e) => {
-								setPassword(e.target.value);
-								if (statusMessage) setStatusMessage(null);
-							}}
-							placeholder="Enter your password..."
-							className="h-11 w-full rounded-lg border border-neutral-200 bg-white pr-11 pl-10 text-sm text-[#141414] placeholder:text-neutral-400 transition-colors focus:border-[#e07009] focus:ring-2 focus:ring-[#e07009]/15 focus:outline-none"
-						/>
-						<button
-							type="button"
-							onClick={() => setShowPassword((prev) => !prev)}
-							aria-label={showPassword ? "Hide password" : "Show password"}
-							className="absolute top-1/2 right-2.5 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
-						>
-							{showPassword ? (
-								<EyeOff className="size-4" />
-							) : (
-								<Eye className="size-4" />
-							)}
-						</button>
-					</div>
+					<Label htmlFor="login-password">Password</Label>
+					<PasswordInput
+						id="login-password"
+						name="password"
+						autoComplete="current-password"
+						value={password}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							if (statusMessage) setStatusMessage(null);
+						}}
+						placeholder="Enter your password..."
+					/>
 				</div>
 
 				{/* Remember Me & Forgot Password */}
 				<div className="flex items-center justify-between pt-0.5">
-					<label className="inline-flex cursor-pointer items-center gap-2 select-none">
-						<button
-							type="button"
-							role="checkbox"
-							aria-checked={rememberMe}
-							onClick={() => setRememberMe((prev) => !prev)}
-							className={cn(
-								"flex size-4 items-center justify-center rounded border transition-colors focus-visible:ring-2 focus-visible:ring-[#e07009]/30 focus-visible:outline-none",
-								rememberMe
-									? "border-[#e07009] bg-[#e07009] text-white"
-									: "border-neutral-300 bg-white text-transparent hover:border-neutral-400"
-							)}
+					<div className="inline-flex items-center gap-2">
+						<Checkbox
+							id="login-remember"
+							checked={rememberMe}
+							onCheckedChange={setRememberMe}
+						/>
+						<label
+							htmlFor="login-remember"
+							className="cursor-pointer text-xs font-medium text-neutral-600 select-none"
 						>
-							<Check className="size-3" strokeWidth={3} />
-						</button>
-						<span className="text-xs font-medium text-neutral-600">
 							Remember me
-						</span>
-					</label>
+						</label>
+					</div>
 
-					<Link
-						href="#"
-						className="text-xs font-semibold text-[#d96b08] transition-colors hover:text-[#b85604] hover:underline"
+					<button
+						type="button"
+						onClick={() =>
+							setStatusMessage({
+								type: "info",
+								text: "Contact your company workspace Admin or check your work email to reset your password.",
+							})
+						}
+						className="cursor-pointer text-xs font-semibold text-[#B45309] transition-colors hover:text-[#92400E] hover:underline focus-visible:ring-2 focus-visible:ring-[#B45309]/35 focus-visible:outline-none"
 					>
 						Forgot password?
-					</Link>
+					</button>
 				</div>
 
 				{/* Status Feedback */}
@@ -211,9 +185,12 @@ export function LoginForm() {
 						role="status"
 						className={cn(
 							"rounded-lg border px-3.5 py-2.5 text-xs font-medium",
-							statusMessage.type === "error"
-								? "border-red-200 bg-red-50 text-red-700"
-								: "border-emerald-200 bg-emerald-50 text-emerald-700"
+							statusMessage.type === "error" &&
+								"border-red-200 bg-red-50 text-red-700",
+							statusMessage.type === "success" &&
+								"border-emerald-200 bg-emerald-50 text-emerald-700",
+							statusMessage.type === "info" &&
+								"border-amber-200 bg-amber-50/80 text-amber-950"
 						)}
 					>
 						{statusMessage.text}
@@ -221,13 +198,24 @@ export function LoginForm() {
 				)}
 
 				{/* Submit Button */}
-				<button
+				<Button
 					type="submit"
-					className="group inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#e07009] px-5 text-sm font-semibold text-white shadow-xs transition-all duration-200 hover:bg-[#c86106] focus-visible:ring-2 focus-visible:ring-[#e07009]/40 focus-visible:outline-none active:scale-[0.99]"
+					variant="amber"
+					disabled={isSubmitting}
+					className="group h-11 w-full rounded-lg text-sm tracking-normal normal-case"
 				>
-					<span>Sign In</span>
-					<ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-				</button>
+					{isSubmitting ? (
+						<>
+							<Loader2 className="size-4 animate-spin" />
+							<span>Signing In...</span>
+						</>
+					) : (
+						<>
+							<span>Sign In</span>
+							<ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+						</>
+					)}
+				</Button>
 			</form>
 
 			{/* Divider */}
@@ -244,22 +232,22 @@ export function LoginForm() {
 				Don&apos;t have an account?{" "}
 				<Link
 					href="/register"
-					className="font-semibold text-[#d96b08] transition-colors hover:text-[#b85604] hover:underline"
+					className="font-semibold text-[#B45309] transition-colors hover:text-[#92400E] hover:underline"
 				>
 					Create an account
 				</Link>
 			</p>
 
 			{/* Try Demo Accounts Expandable Card */}
-			<div className="mt-5 overflow-hidden rounded-xl border border-neutral-200 bg-white transition-colors">
+			<div className="mt-5 overflow-hidden rounded-xl border border-[#E7E5E4] bg-white transition-colors">
 				<button
 					type="button"
 					onClick={() => setDemoOpen((prev) => !prev)}
 					aria-expanded={demoOpen}
-					className="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-left transition-colors hover:bg-neutral-50"
+					className="flex w-full cursor-pointer items-center justify-between px-4 py-3 text-left transition-colors hover:bg-neutral-50 focus-visible:ring-2 focus-visible:ring-[#B45309]/35 focus-visible:outline-none"
 				>
 					<span className="inline-flex items-center gap-2.5 text-xs font-semibold text-[#141414]">
-						<ShieldCheck className="size-4 text-[#d96b08]" />
+						<ShieldCheck className="size-4 text-[#B45309]" />
 						<span>Try Demo Accounts</span>
 					</span>
 					<ChevronDown
@@ -271,7 +259,7 @@ export function LoginForm() {
 				</button>
 
 				{demoOpen && (
-					<div className="space-y-1.5 border-t border-neutral-100 bg-neutral-50/60 p-2.5">
+					<div className="space-y-1.5 border-t border-neutral-100 bg-[#FAFAF9] p-2.5">
 						{demoAccounts.map((account) => {
 							const meta = roleMeta[account.role];
 							const isSelected = selectedDemoRole === account.role;
@@ -283,7 +271,7 @@ export function LoginForm() {
 									className={cn(
 										"flex w-full cursor-pointer items-center justify-between rounded-lg border px-3 py-2 text-left transition-all",
 										isSelected
-											? "border-[#e07009]/45 bg-[#FF6B00]/6"
+											? "border-[#B45309]/45 bg-[#FF6B00]/6"
 											: "border-transparent bg-white hover:border-neutral-200"
 									)}
 								>
@@ -295,14 +283,12 @@ export function LoginForm() {
 											{account.email}
 										</p>
 									</div>
-									<span
-										className={cn(
-											"ml-2 shrink-0 rounded-md border px-2 py-0.5 text-[10px] font-semibold",
-											account.badgeClass
-										)}
+									<Badge
+										variant={account.badgeVariant}
+										className="ml-2 shrink-0 rounded-md px-2 text-[10px]"
 									>
 										{meta.shortLabel}
-									</span>
+									</Badge>
 								</button>
 							);
 						})}

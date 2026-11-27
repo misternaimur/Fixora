@@ -4,6 +4,8 @@ import { cn } from "@/app/lib/utils";
 const variantStyles = {
   default:
     "bg-[#ef682e] text-[#141414] font-bold shadow-xs hover:bg-[#e05c22]",
+  amber:
+    "bg-[#B45309] text-white font-semibold shadow-xs hover:bg-[#92400E]",
   destructive:
     "bg-red-600 text-white shadow-xs hover:bg-red-700",
   outline:
@@ -36,7 +38,7 @@ export function buttonVariants({
   className?: string;
 } = {}) {
   return cn(
-    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md font-semibold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef682e] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+    "inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md font-semibold uppercase tracking-[0.12em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef682e] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0",
     variantStyles[variant],
     sizeStyles[size],
     className

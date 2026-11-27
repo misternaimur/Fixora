@@ -65,7 +65,7 @@ export default function LoginPage() {
 							iconClassName="size-8"
 							textClassName="text-xl text-white"
 						/>
-						<span className="pl-[42px] text-[10px] font-semibold tracking-[0.22em] text-neutral-300/80 uppercase">
+						<span className="pl-[1px] text-[10px] font-semibold tracking-[0.22em] text-neutral-300/80 uppercase">
 							Construction Intelligence
 						</span>
 					</Link>
@@ -131,7 +131,7 @@ export default function LoginPage() {
 						<Logo
 							iconClassName="size-7"
 							textClassName="text-lg text-[#141414]"
-						/>
+						/>  
 					</Link>
 					<Link
 						href="/"
@@ -147,18 +147,19 @@ export default function LoginPage() {
 				</div>
 
 				{/* Bottom Legal & Copyright Footer */}
-				<footer className="mx-auto flex w-full max-w-[410px] items-center justify-between pt-4 text-[11px] text-neutral-400">
+				<footer className="mx-auto flex w-full max-w-[410px] items-center justify-between pt-4 text-[11px] text-neutral-500">
 					<span>&copy; 2026 Fixora</span>
 					<div className="flex items-center gap-4">
-						<Link href="#" className="transition-colors hover:text-neutral-700">
+						<Link href="/privacy" className="transition-colors hover:text-[#141414]">
 							Privacy Policy
 						</Link>
-						<Link href="#" className="transition-colors hover:text-neutral-700">
+						<Link href="/terms" className="transition-colors hover:text-[#141414]">
 							Terms &amp; Conditions
 						</Link>
 					</div>
 				</footer>
 			</main>
 		</div>
+		
 	);
 }

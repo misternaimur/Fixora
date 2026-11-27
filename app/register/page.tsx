@@ -132,7 +132,7 @@ export default function RegisterPage() {
 					</Link>
 					<Link
 						href="/login"
-						className="text-xs font-semibold text-[#D97706] hover:text-[#B45309]"
+						className="text-xs font-semibold text-[#B45309] hover:text-[#92400E]"
 					>
 						Sign In
 					</Link>
